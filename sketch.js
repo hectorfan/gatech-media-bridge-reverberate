@@ -57,6 +57,16 @@ var rippleMusic;
 var stringMusic;
 var flowerMusic;
 
+var myMessage;
+var tile_1_on = "Someone said: q";
+var tile_1_off = "Someone said: a";
+var tile_2_on = "Someone said: w";
+var tile_2_off = "Someone said: s";
+var tile_3_on = "Someone said: e";
+var tile_3_off = "Someone said: d";
+var tile_4_on = "Someone said: r";
+var tile_4_off = "Someone said: f";
+
 
 function preload() {
   idle = loadSound('audio/IdleMusic.mp3');
@@ -73,9 +83,7 @@ function preload() {
   for (var i = 0; i <= 185; i++) {
     covers[i] = loadImage('images/cover/cover_' + i + '.png');
   }
-  // imageName = entry0001.png;
-  // img = loadImage('images/entry_animation/entry' + String(1).padStart(5, '0') + '.png');
-  // entries[0] = loadImage('images/entry_animation/entry0001.png');
+
 }
 
 function setup() {
@@ -128,12 +136,6 @@ function setup() {
 
 function draw() {
 
-  // var i = 1;
-  // console.log(String(i).padStart(5, '0'));
-
-  // text = 'images/entry_animation/entry' + String(1).padStart(5, '0') + '.png';
-  // console.log(text);
-
   moveFrameEntry();
   if (ifIdle_1 == true) {
     Entry(tile1.x, tile1.y);
@@ -165,7 +167,7 @@ function draw() {
     act_1(tile1.x, tile1.y);
   }
 
-  if (ifTunnelOut_1 == true){
+  if (ifTunnelOut_1 == true) {
     moveFrameTunnelOut_1();
     tunnelOut_1(tile1.x, tile1.y);
   }
@@ -218,14 +220,7 @@ function draw() {
     tunnelOut_4(tile4.x, tile4.y);
   }
 
-  // moveFrameActAni_1();
-  // act_1(tile1.x, tile1.y);
-
-  // if (ifIdle){
-  //   idle.play();
-  // }
 }
-
 
 
 ////////////////////////functions////////////////////////
@@ -440,28 +435,86 @@ function keyReleased() {
   if (key === 'a') {
     ifActAni_1 = false;
     ifTunnelOut_1 = true;
-    // ifIdle_1 = true;
     particleMusic.setVolume(0);
   }
 
   if (key === 's') {
     ifActAni_2 = false;
     ifTunnelOut_2 = true;
-    // ifIdle_2 = true;
     rippleMusic.setVolume(0);
   }
 
   if (key === 'd') {
     ifActAni_3 = false;
     ifTunnelOut_3 = true;
-    // ifIdle_3 = true;
     stringMusic.setVolume(0);
   }
 
   if (key === 'f') {
     ifActAni_4 = false;
     ifTunnelOut_4 = true;
-    // ifIdle_4 = true;
+    flowerMusic.setVolume(0);
+  }
+}
+
+/////////////////////////////websocket
+const serverAddress = 'wss://hectorfan-websocket-server-echo.glitch.me/';
+const serverConnection = new WebSocket(serverAddress);
+
+serverConnection.onopen = function () {
+  console.log("conneted on " + serverAddress);
+  serverConnection.send("p5 canvas is connected");
+}
+
+serverConnection.onmessage = function (event) {
+  console.log(event.data);
+  myMessage = event.data;
+
+  if (tile_1_on === myMessage) {
+    ifTunnel_1 = true;
+    ifIdle_1 = false;
+    transMusic.play();
+  }
+
+  if (tile_1_off === myMessage) {
+    ifActAni_1 = false;
+    ifTunnelOut_1 = true;
+    particleMusic.setVolume(0);
+  }
+
+  if (tile_2_on === myMessage) {
+    ifTunnel_2 = true;
+    ifIdle_2 = false;
+    transMusic.play();
+  }
+
+  if (tile_2_off === myMessage) {
+    ifActAni_2 = false;
+    ifTunnelOut_2 = true;
+    rippleMusic.setVolume(0);
+  }
+
+  if (tile_3_on === myMessage) {
+    ifTunnel_3 = true;
+    ifIdle_3 = false;
+    transMusic.play();
+  }
+
+  if (tile_3_off === myMessage) {
+    ifActAni_3 = false;
+    ifTunnelOut_3 = true;
+    stringMusic.setVolume(0);
+  }
+
+  if (tile_4_on === myMessage) {
+    ifTunnel_4 = true;
+    ifIdle_4 = false;
+    transMusic.play();
+  }
+
+  if (tile_4_off === myMessage) {
+    ifActAni_4 = false;
+    ifTunnelOut_4 = true;
     flowerMusic.setVolume(0);
   }
 }
