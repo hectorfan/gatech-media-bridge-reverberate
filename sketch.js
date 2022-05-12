@@ -1,3 +1,24 @@
+//////////////////////////matter.js
+// var Engine = Matter.Engine,
+//   Render = Matter.Render,
+//   Runner = Matter.Runner,
+//   Bodies = Matter.Bodies,
+//   Composite = Matter.Composite,
+//   Constraint = Matter.Constraint;
+
+// var engine = Engine.create();
+// engine.enableSleeping = true;
+
+// var world = engine.world;
+
+// // create a renderer
+// var render = Render.create({
+//   element: document.body,
+//   engine: engine
+// });
+
+
+
 var entries = [];
 var tunnels_particle = [];
 var tunnels_ripple = [];
@@ -68,6 +89,7 @@ var tile_4_on = "Someone said: r";
 var tile_4_off = "Someone said: f";
 
 
+
 function preload() {
   idle = loadSound('audio/IdleMusic.mp3');
   transMusic = loadSound('audio/Transition_music.m4a');
@@ -85,6 +107,8 @@ function preload() {
   }
 
 }
+
+
 
 function setup() {
   for (var i = 0; i <= 217; i++) {
@@ -131,12 +155,21 @@ function setup() {
   flowerMusic.setVolume(0);
 
   createCanvas(3072, 1280);
-  background(0);
+
+  ////////////matter.js
+  //create runner and run the engine
+  // var runner = Runner.create();
+  // Runner.run(runner, engine);
+  // // Render.run(render);
+
+  // engine.gravity.y = -0.5;
 }
 
 function draw() {
+  background(0);
 
   moveFrameEntry();
+
   if (ifIdle_1 == true) {
     Entry(tile1.x, tile1.y);
   }
@@ -158,66 +191,66 @@ function draw() {
 
   /////////////tile 1
   if (ifTunnel_1 == true) {
-    moveFrameTunnel_1();
     tunnel_1(tile1.x, tile1.y);
+    moveFrameTunnel_1();
   }
 
   if (ifActAni_1 == true) {
-    moveFrameAct_1();
     act_1(tile1.x, tile1.y);
+    moveFrameAct_1();
   }
 
   if (ifTunnelOut_1 == true) {
-    moveFrameTunnelOut_1();
     tunnelOut_1(tile1.x, tile1.y);
+    moveFrameTunnelOut_1();
   }
 
   /////////////tile 2
   if (ifTunnel_2 == true) {
-    moveFrameTunnel_2();
     tunnel_2(tile2.x, tile2.y);
+    moveFrameTunnel_2();
   }
 
   if (ifActAni_2 == true) {
-    moveFrameAct_2();
     act_2(tile2.x, tile2.y);
+    moveFrameAct_2();
   }
 
-  if (ifTunnelOut_2 == true){
-    moveFrameTunnelOut_2();
+  if (ifTunnelOut_2 == true) {
     tunnelOut_2(tile2.x, tile2.y);
+    moveFrameTunnelOut_2();
   }
 
   /////////////tile 3
   if (ifTunnel_3 == true) {
-    moveFrameTunnel_3();
     tunnel_3(tile3.x, tile3.y);
+    moveFrameTunnel_3();
   }
 
   if (ifActAni_3 == true) {
-    moveFrameAct_3();
     act_3(tile3.x, tile3.y);
+    moveFrameAct_3();
   }
 
-  if (ifTunnelOut_3 == true){
-    moveFrameTunnelOut_3();
+  if (ifTunnelOut_3 == true) {
     tunnelOut_3(tile3.x, tile3.y);
+    moveFrameTunnelOut_3();
   }
 
   /////////////tile 4
   if (ifTunnel_4 == true) {
-    moveFrameTunnel_4();
     tunnel_4(tile4.x, tile4.y);
+    moveFrameTunnel_4();
   }
 
   if (ifActAni_4 == true) {
-    moveFrameAct_4();
     act_4(tile4.x, tile4.y);
+    moveFrameAct_4();
   }
 
-  if (ifTunnelOut_4 == true){
-    moveFrameTunnelOut_4();
+  if (ifTunnelOut_4 == true) {
     tunnelOut_4(tile4.x, tile4.y);
+    moveFrameTunnelOut_4();
   }
 
 }
@@ -266,8 +299,8 @@ function moveFrameTunnelOut_1() {
   imgIndexTunnelOut_1--;
   if (imgIndexTunnelOut_1 < 0) {
     imgIndexTunnelOut_1 = 217;
-    ifIdle_1 = true;
     ifTunnelOut_1 = false;
+    ifIdle_1 = true;
   }
 }
 
